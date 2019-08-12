@@ -5,7 +5,32 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
+    <header>
+      <h1>{{ title }}</h1>
+      <p>Welcome to {{ title }}</p>
+    </header>
+
+    <div id="windows">
+      <div class="chat-window">
+        <ul id="messages-1"></ul>
+        <form action="">
+          <input id="message-input-1" autocomplete="off" />
+          <button>Send</button>
+        </form>
+      </div>
+
+      <div class="chat-window">
+        <ul id="messages-2"></ul>
+        <form action="">
+          <input id="message-input-2" autocomplete="off" />
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+    </script>
   </body>
 </html>
