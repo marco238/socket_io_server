@@ -12,25 +12,75 @@
 
     <div id="windows">
       <div class="chat-window">
-        <ul id="messages-1"></ul>
-        <form action="">
-          <input id="message-input-1" autocomplete="off" />
+        <div id="messages_1"></div>
+        <form  onsubmit="submitFormOne">
+          <input id="message-input-1" name="input1" autocomplete="off" />
           <button>Send</button>
         </form>
       </div>
 
       <div class="chat-window">
-        <ul id="messages-2"></ul>
-        <form action="">
-          <input id="message-input-2" autocomplete="off" />
+        <div id="messages_2"></div>
+        <form  onsubmit="submitFormTwo">
+          <input id="message-input-2" name="input2" autocomplete="off" />
           <button>Send</button>
         </form>
       </div>
     </div>
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
     <script>
+      let msgListOne = window.document.querySelector('#messages_1');
+      let msgListTwo = window.document.querySelector('#messages_2');
+
       var socket = io();
+      socket.on('chat message', function(msg){
+        let node = document.createElement("DIV");
+        let textnode = document.createTextNode(msg.msg);
+        node.classList.add('remote');
+        node.appendChild(textnode);
+        if(msg.from === 'One') {
+          msgListTwo.appendChild(node);
+        } else {
+          msgListOne.appendChild(node);
+        }
+      });
+
+      let form1 = window.document.querySelectorAll('form')[0];
+      let form2 = window.document.querySelectorAll('form')[1];
+
+      function submitFormOne(e) {
+        e.preventDefault();
+        const msg = e.srcElement[0].value;
+        socket.emit('chat message', {msg, from: 'One'});
+        appendLocalMessage('One', msg);
+        form1.childNodes[1].value = '';
+      }
+      function submitFormTwo(e) {
+        e.preventDefault();
+        const msg = e.srcElement[0].value;
+        socket.emit('chat message', {msg, from: 'Two'});
+        appendLocalMessage('Two', msg);
+        form2.childNodes[1].value = '';
+      }
+
+      function appendLocalMessage(from, msg) {
+        let containerNode = document.createElement("DIV");
+        let node = document.createElement("DIV");
+        let textnode = document.createTextNode(msg);
+        containerNode.classList.add('localContainer');
+        node.classList.add('local');
+        node.appendChild(textnode);
+        containerNode.appendChild(node);
+        if(from === 'One') {
+          msgListOne.appendChild(containerNode);
+        } else {
+          msgListTwo.appendChild(containerNode);
+        }
+      }
+
+      form1.addEventListener("submit", submitFormOne);
+      form2.addEventListener("submit", submitFormTwo);
     </script>
   </body>
 </html>
