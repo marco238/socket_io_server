@@ -31,15 +31,21 @@ header p {
   position: relative;
   box-shadow: 2px 2px 10px #888;
   border-radius: 8px;
-  display: flex;
-  padding-bottom: 80px;
-  box-sizing: border-box;
-  flex-direction: column-reverse;
-  overflow: scroll;
 }
 
 .chat-window:last-child {
   background-color: rgb(40, 79, 99);
+}
+
+#messages_1, #messages_2 {
+  height: calc(100% - 52px);
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow-y: scroll;
+  margin-top: 2px;
 }
 
 form {
@@ -97,8 +103,8 @@ button:focus {
   width: fit-content;
   padding: 10px 20px;
   border-radius: 0 10px 10px 10px;
-  margin: 20px 20px -15px 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  margin: -5px 10px 10px 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
 .local {
@@ -107,8 +113,8 @@ button:focus {
   width: fit-content;
   padding: 10px 20px;
   border-radius: 10px 0 10px 10px;
-  margin: 20px 20px -15px 20px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  margin: -5px 10px 10px 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
 .localContainer {

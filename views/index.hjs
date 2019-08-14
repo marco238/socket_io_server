@@ -52,16 +52,20 @@
       function submitFormOne(e) {
         e.preventDefault();
         const msg = e.srcElement[0].value;
-        socket.emit('chat message', {msg, from: 'One'});
-        appendLocalMessage('One', msg);
-        form1.childNodes[1].value = '';
+        if(msg !== '') {
+          socket.emit('chat message', {msg, from: 'One'});
+          appendLocalMessage('One', msg);
+          form1.childNodes[1].value = '';
+        }
       }
       function submitFormTwo(e) {
         e.preventDefault();
         const msg = e.srcElement[0].value;
-        socket.emit('chat message', {msg, from: 'Two'});
-        appendLocalMessage('Two', msg);
-        form2.childNodes[1].value = '';
+        if(msg !== '') {
+          socket.emit('chat message', {msg, from: 'Two'});
+          appendLocalMessage('Two', msg);
+          form2.childNodes[1].value = '';
+        }
       }
 
       function appendLocalMessage(from, msg) {
